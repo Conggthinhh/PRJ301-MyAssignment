@@ -10,12 +10,11 @@ import java.util.ArrayList;
  *
  * @author Mr.Thinh
  */
-public class Student {
+public class Lecturer {
     private int id;
-    private String member;
     private String name;
     private ArrayList<Group> groups = new ArrayList<>();
-    private ArrayList<Attandance> atts = new ArrayList<>();
+    private ArrayList<Session> sessions = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -23,14 +22,6 @@ public class Student {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getMember() {
-        return member;
-    }
-
-    public void setMember(String member) {
-        this.member = member;
     }
 
     public String getName() {
@@ -49,11 +40,13 @@ public class Student {
         this.groups = groups;
     }
 
-    public ArrayList<Attandance> getAtts() {
-        return atts;
+    public ArrayList<Session> getSessions() {
+        return sessions;
     }
 
-    public void setAtts(ArrayList<Attandance> atts) {
-        this.atts = atts;
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
     }
-}  
+    
+    
+}

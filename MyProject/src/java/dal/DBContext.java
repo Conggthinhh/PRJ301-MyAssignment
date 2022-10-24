@@ -7,16 +7,19 @@ package dal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author Mr Thinh
+ * @author Mr.Thinh
  */
-public class DBContext {
+public abstract class DBContext<T> {
+
     protected Connection connection;
-    public DBContext(){
+
+    public DBContext() {
         try {
             String username = "dung";
             String password = "12345";
@@ -29,4 +32,14 @@ public class DBContext {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    //INSERT INTO
+    public abstract void insert(T model);
+     //UPDATE SET
+    public abstract void update(T model);
+     //DELETE FROM
+    public abstract void delete(T model);
+     //SELECT * FROM WHERE id =
+    public abstract T get(int id);
+    //SELECT * FROM
+    public abstract ArrayList<T> list();
 }
