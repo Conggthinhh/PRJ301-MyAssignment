@@ -4,7 +4,6 @@
  */
 package model;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +11,6 @@ import java.util.ArrayList;
  * @author Mr.Thinh
  */
 public class TimeSlot {
-
     private int id;
     private String description;
     private ArrayList<Session> sessions = new ArrayList<>();
@@ -40,5 +38,6 @@ public class TimeSlot {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
+    
 }

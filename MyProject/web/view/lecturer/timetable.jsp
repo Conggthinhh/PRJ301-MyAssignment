@@ -1,6 +1,6 @@
 <%-- 
-    Document   : login
-    Created on : Nov 2, 2022, 5:18:12 PM
+    Document   : timetable
+    Created on : Oct 24, 2022, 5:26:46 PM
     Author     : Mr Thinh
 --%>
 
@@ -68,13 +68,13 @@
             </div> 
             <div class="col-md-12">
                 <br/>
-                <h1 style="text-align: center;">Time Table For </h1>
-                <h2 style="text-align: center;">Lecturer: ${requestScope.lecturer.name}</h2>
+                <h1 style="text-align: center;">Time Table for </h1>
+                Lecturer: <input style="text-align: center;" readonly="readonly" value="${requestScope.lecturer.name}"/>
                 <form action="timetable" method="GET">
                     <input type="hidden" name="lid" value="${param.lid}"/><br/>
                     From: <input type="date" name="from" value="${requestScope.from}"/>
-                    To: <input type="date" name="to" value="${requestScope.to}"/>
-                    <input type="submit" value="View" style="background-color: #6B90DA; "/> 
+                    To: <input type="date" name="to" value="${requestScope.to}"/><br/>
+                    <br/><input type="submit" value="View" style="background-color: #6B90DA; "/> 
                 </form>
             </div>       
             <br/>     
@@ -101,10 +101,10 @@
                                                 <br/>
                                                 at ${ses.room.name}
                                                 <c:if test="${ses.attanded}">
-                                                    <p style="color: green">(Done)</p>
+                                                    <p style="color: green">(attended)</p>
                                                 </c:if>
                                                 <c:if test="${!ses.attanded}">
-                                                    <p style="color: red">(Not yet)</p>
+                                                    <p style="color: red">(absent)</p>
                                                 </c:if>
                                             </c:if>
                                         </c:forEach>

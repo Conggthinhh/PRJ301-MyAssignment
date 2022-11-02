@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * @author Mr.Thinh
  */
 public class Session {
-
     private int id;
     private Group group;
     private Room room;
@@ -63,6 +62,8 @@ public class Session {
         this.timeslot = timeslot;
     }
 
+    
+
     public ArrayList<Attandance> getAtts() {
         return atts;
     }
@@ -94,5 +95,6 @@ public class Session {
     public void setAttanded(boolean attanded) {
         this.attanded = attanded;
     }
-
+    
+    
 }

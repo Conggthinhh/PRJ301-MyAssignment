@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * @author Mr.Thinh
  */
 public class Student {
-
     private int id;
     private String member;
     private String name;
@@ -57,4 +56,4 @@ public class Student {
     public void setAtts(ArrayList<Attandance> atts) {
         this.atts = atts;
     }
-}
+}  

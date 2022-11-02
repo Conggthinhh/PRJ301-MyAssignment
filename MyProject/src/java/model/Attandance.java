@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.util.Date;
-
 /**
  *
  * @author Mr.Thinh
@@ -15,16 +13,7 @@ public class Attandance {
     private Session session;
     private boolean present;
     private String description;
-    private Date record_time;
 
-    public Date getRecord_time() {
-        return record_time;
-    }
-
-    public void setRecord_time(Date record_time) {
-        this.record_time = record_time;
-    }
-    
     public Student getStudent() {
         return student;
     }
