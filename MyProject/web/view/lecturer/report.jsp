@@ -1,6 +1,6 @@
 <%-- 
-    Document   : login
-    Created on : Nov 2, 2022, 5:18:12 PM
+    Document   : report
+    Created on : Nov 2, 2022, 5:18:54 PM
     Author     : Mr Thinh
 --%>
 
@@ -11,17 +11,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <!-- CSS only -->
 
+        <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
     </head>
     <body>
         <div class="container-fluid">
+
             <div class="row col-md-12" style="border-bottom: 1px solid; padding: 10px;">
                 <div class="col-md-6">
                     <h1>FPT University Academic Portal</h1>
@@ -50,41 +52,29 @@
             </div>
             <div class="row col-md-12" style="padding: 10px 0px 10px 10px; background-color: #F5F5F5;">
                 <p><a href="" style="font-size: 15px">Home</a> |
-                   <a href="" style="font-size: 15px">Check Attendance</a>|
-                   <a href="timetable?lid=${ses.lecturer.id}" style="font-size: 15px">Time Table</a>
+                    <a href="" style="font-size: 15px">Check Attendance</a>|
+                    <a href="timetable?lid=${ses.lecturer.id}" style="font-size: 15px">Time Table</a>
                 </p>
             </div> 
             <br/>
             <br/>
-            <h1 style="padding-left: 580px">Take Attendance</h1> <br/>
-            <a href="report?gid=${ses.group.id}" style="padding-left: 570px; font-size: 40px"> Group: ${requestScope.ses.group.name}</a><br/>
-            <div class="row header" style="padding-left: 50px">
-                <h4 style="padding-left: 10px">Subject: ${requestScope.ses.group.subject.name}</h4><br/>
-                <h4 style="padding-left: 10px">Room: ${requestScope.ses.room.name} </h4><br/>
-                <h4 style="padding-left: 10px">Date: ${requestScope.ses.date} / Time Slot: ${requestScope.ses.timeslot.description}</h4><br/>
-                <h4 style="padding-left: 10px">Attended: 
-                    <c:if test="${requestScope.ses.attanded}">
-                        <h4 style="color: green;">Yes</h4>
-                    </c:if>
-                    <c:if test="${!requestScope.ses.attanded}">
-                        <h4 style="color: red;">No</h4>
-                    </c:if></h4><br/>
-            </div>
+            <h1 style="padding-left: 580px">Attendance Report</h1> <br/>
+            <h2 style="padding-left: 600px">Group: ${requestScope.ses.group.name} </h2><br/>
             <br/>
             <br/>
             <div class="col-md-12">
-                <form action="attendance" method="POST">
+                <form action="report" method="POST">
                     <input type="hidden" name="sesid" value="${param.id}"/>
                     <table style =" width: 100%;">
                         <thead style="background-color: #6B90DA;">
                         <th style="border: 1px solid; padding: 10px 0px 10px 20px;">No.</th>
                         <th style="border: 1px solid; padding: 10px 0px 10px 20px;">Std ID</th>
-                        <th style="border: 1px solid; padding: 10px 0px 10px 20px;">Image</th>
+                        <th style="border: 1px solid; padding: 10px 0px 10px 20px;">Student Name</th>
                         <th style="border: 1px solid; padding: 10px 0px 10px 20px;">Member ID</th>
-                        <th style="border: 1px solid; padding: 10px 0px 10px 20px;">Full Name</th>
-                        <th style="border: 1px solid; padding: 10px 0px 10px 20px;">Present</th>
-                        <th style="border: 1px solid; padding: 10px 0px 10px 20px;">Absent</th>
-                        <th style="border: 1px solid; padding: 10px 0px 10px 20px;">Description</th>
+                        <th style="border: 1px solid; padding: 10px 0px 10px 20px;">Absent(%)</th>
+                            <c:forEach items="${requestScope.list}" var="list" varStatus="loop">
+                            <th style="border: 1px solid; padding: 10px 0px 10px 20px;">${list.date}</th>
+                            </c:forEach>
                         </thead>
                         <tbody>
                             <c:forEach items="${requestScope.ses.atts}" var="a" varStatus="loop">
@@ -93,33 +83,30 @@
                                     <td style="height: 100px; border: 1px solid; padding-left: 20px">${a.student.id}
                                         <input type="hidden" name="stdid" value="${a.student.id}"/>
                                     </td>
-                                    <td style="border: 1px solid ; padding: auto;">
-                                    <center>
-                                        <img src="http://www.fao.org/fileadmin/templates/experts-feed-safety/images/profile-img03.jpg" alt="HE153140" style="height:146px;width:111px;border-width:0px;">
-                                    </center>
-                                    </td>
-                                    <td style="height: 100px; border: 1px solid; padding-left: 20px">${a.student.member}</td>
+
                                     <td style="height: 100px; border: 1px solid; padding-left: 20px">${a.student.name}</td>
-                                    <td style="height: 100px; border: 1px solid; padding-left: 20px"><input type="radio"
-                                                            <c:if test="${a.present}">
-                                                                checked="checked"
-                                                            </c:if>
-                                               name="present${a.student.id}" value="present" /></td>
-                                    <td style="height: 100px; border: 1px solid; padding-left: 20px"><input type="radio"
-                                                            <c:if test="${!a.present}">
-                                                                checked="checked"
-                                                            </c:if>
-                                               name="present${a.student.id}" value="absent" /></td>
-                                    <td style="height: 100px; border: 1px solid; padding-left: 20px; width: 250px"><input type="text" name="description${a.student.id}" value="${a.description}" /></td>
+                                    <td style="height: 100px; border: 1px solid; padding-left: 20px">${a.student.member}</td>
+                                    <td style="height: 100px; border: 1px solid; padding-left: 20px"></td>
+                                    <td style="height: 100px; border: 1px solid; padding-left: 20px"><input type="text"
+                                                                                                            <c:if test="${!a.present}">
+                                                                                                                hidden="P"
+                                                                                                            </c:if>         
+                                                                                                            name="present${a.student.id}" value="P" />
+                                    </td>                       
                                 </tr>   
                             </c:forEach>
                         </tbody>
                     </table>
                     <br/>
                     <br/>
-                    <input style="background-color: #6B90DA;" type="submit" value="Save"/>
                 </form>
-            </div>    
+            </div> 
+        </div>	 <!--Kết thúc container-fluid-->
+        <br/>
+        <br/>
+        <div style="padding:10px; border-top: 1px solid;">
+            <strong>More note / Chú thích thêm:</strong><br/>
+
         </div>
         <br/>
         <br/>

@@ -22,9 +22,9 @@ import model.TimeSlot;
 
 /**
  *
- * @author ADMIN
+ * @author Mr.Thinh
  */
-public class SessionDBContext extends dal.DBContext<Session> {
+public class SessionDBContext extends DBContext<Session> {
 
     @Override
     public void insert(Session model) {
@@ -47,18 +47,18 @@ public class SessionDBContext extends dal.DBContext<Session> {
             PreparedStatement stm_remove_available = connection.prepareStatement(sql);
             stm_remove_available.setInt(1, model.getId());
             stm_remove_available.executeUpdate();
-            
-            for(Attandance a : model.getAtts()){
-                 sql = "INSERT INTO [Attandance]\n"
+
+            for (Attandance a : model.getAtts()) {
+                sql = "INSERT INTO [Attandance]\n"
                         + "           ([sesid]\n"
                         + "           ,[stdid]\n"
                         + "           ,[present]\n"
-                        + "           ,[description]\n"
+                        + "           ,[description])\n"
                         + "     VALUES\n"
                         + "           (?\n"
                         + "           ,?\n"
                         + "           ,?\n"
-                        + "           ,?\n";
+                        + "           ,?)";
                 PreparedStatement stm_insert_new_record = connection.prepareStatement(sql);
                 stm_insert_new_record.setInt(1, model.getId());
                 stm_insert_new_record.setInt(2, a.getStudent().getId());
@@ -87,7 +87,6 @@ public class SessionDBContext extends dal.DBContext<Session> {
     public void delete(Session model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 
     @Override
     public Session get(int id) {
@@ -165,7 +164,7 @@ public class SessionDBContext extends dal.DBContext<Session> {
         }
         return null;
     }
-    
+
     @Override
     public ArrayList<Session> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -237,4 +236,65 @@ public class SessionDBContext extends dal.DBContext<Session> {
         return sessions;
     }
 
+    public ArrayList<Session> sieves(int gid) {
+        ArrayList<Session> sessions = new ArrayList<>();
+        try {
+            String sql = "SELECT \n"
+                    + "	ses.sesid,ses.[date],ses.[index],ses.attanded\n"
+                    + "	,g.gid,g.gname\n"
+                    + "	,sub.subid,sub.subname\n"
+                    + "	,l.lid,l.lname\n"
+                    + "	,r.rid,r.rname\n"
+                    + "	,t.tid,t.[description]\n"
+                    + " FROM [Session] ses \n"
+                    + "			INNER JOIN [Group] g ON g.gid = ses.gid\n"
+                    + "			INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
+                    + "			INNER JOIN Lecturer l ON l.lid = ses.lid\n"
+                    + "			INNER JOIN Room r ON r.rid = ses.rid\n"
+                    + "			INNER JOIN TimeSlot t ON t.tid = ses.tid\n"
+                    + " WHERE\n"
+                    + " ses.sid = ?\n";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, gid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Session s = new Session();
+                Group g = new Group();
+                Room r = new Room();
+                Lecturer l = new Lecturer();
+                TimeSlot t = new TimeSlot();
+                Subject sub = new Subject();
+
+                s.setId(rs.getInt("sesid"));
+                s.setDate(rs.getDate("date"));
+                s.setIndex(rs.getInt("index"));
+                s.setAttanded(rs.getBoolean("attanded"));
+
+                g.setId(rs.getInt("gid"));
+                g.setName(rs.getString("gname"));
+                s.setGroup(g);
+
+                sub.setId(rs.getInt("subid"));
+                sub.setName(rs.getString("subname"));
+                g.setSubject(sub);
+
+                l.setId(rs.getInt("lid"));
+                l.setName(rs.getString("lname"));
+                s.setLecturer(l);
+
+                r.setId(rs.getInt("rid"));
+                r.setName(rs.getString("rname"));
+                s.setRoom(r);
+
+                t.setId(rs.getInt("tid"));
+                t.setDescription(rs.getString("description"));
+                s.setTimeslot(t);
+
+                sessions.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sessions;
+    }
 }
