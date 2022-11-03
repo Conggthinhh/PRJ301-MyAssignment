@@ -4,6 +4,7 @@
     Author     : Mr Thinh
 --%>
 
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="helper" class="util.DateTimeHelper"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -68,13 +69,13 @@
             </div> 
             <div class="col-md-12">
                 <br/>
-                <h1 style="text-align: center;">Time Table for </h1>
-                Lecturer: <input style="text-align: center;" readonly="readonly" value="${requestScope.lecturer.name}"/>
+                <h1 style="text-align: center;">Time Table For </h1>
+                <h2 style="text-align: center;">Lecturer: ${requestScope.lecturer.name}</h2>
                 <form action="timetable" method="GET">
                     <input type="hidden" name="lid" value="${param.lid}"/><br/>
                     From: <input type="date" name="from" value="${requestScope.from}"/>
-                    To: <input type="date" name="to" value="${requestScope.to}"/><br/>
-                    <br/><input type="submit" value="View" style="background-color: #6B90DA; "/> 
+                    To: <input type="date" name="to" value="${requestScope.to}"/>
+                    <input type="submit" value="View" style="background-color: #6B90DA; "/> 
                 </form>
             </div>       
             <br/>     
@@ -101,10 +102,10 @@
                                                 <br/>
                                                 at ${ses.room.name}
                                                 <c:if test="${ses.attanded}">
-                                                    <p style="color: green">(attended)</p>
+                                                    <p style="color: green">(Done)</p>
                                                 </c:if>
                                                 <c:if test="${!ses.attanded}">
-                                                    <p style="color: red">(absent)</p>
+                                                    <p style="color: red">(Not yet)</p>
                                                 </c:if>
                                             </c:if>
                                         </c:forEach>

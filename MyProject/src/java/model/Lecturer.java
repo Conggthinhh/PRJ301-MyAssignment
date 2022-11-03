@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author Mr.Thinh
  */
 public class Lecturer {
+
     private int id;
     private String name;
     private ArrayList<Group> groups = new ArrayList<>();
@@ -47,6 +48,5 @@ public class Lecturer {
     public void setSessions(ArrayList<Session> sessions) {
         this.sessions = sessions;
     }
-    
-    
+
 }

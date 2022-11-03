@@ -62,8 +62,6 @@ public class Session {
         this.timeslot = timeslot;
     }
 
-    
-
     public ArrayList<Attandance> getAtts() {
         return atts;
     }

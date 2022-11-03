@@ -48,17 +48,14 @@ public class DateTimeHelper {
         return dayOfWeek;
     }
     
-    public static Date addDays(java.util.Date d, int days)
-    {
+    public static Date addDays(java.util.Date d, int days){
         Calendar cal = Calendar.getInstance(); 
         cal.setTime(d);
         cal.add(Calendar.DATE, days);
         return cal.getTime();
     }
     
-    public static ArrayList<java.sql.Date> 
-        getDateList(java.sql.Date from, java.sql.Date to)
-    {
+    public static ArrayList<java.sql.Date> getDateList(java.sql.Date from, java.sql.Date to){
         ArrayList<java.sql.Date> dates = new ArrayList<>();
         int days = 0;
         java.util.Date e_from = toDateUtil(from);
@@ -79,22 +76,19 @@ public class DateTimeHelper {
         Calendar c = Calendar.getInstance();
         c.setTime(d);
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        switch(dayOfWeek)
-        {
-            case 1: return "Sun";
-            case 2: return "Mon";
-            case 3: return "Tue";
-            case 4: return "Wed";
-            case 5: return "Thu";
-            case 6: return "Fri";
-            case 7: return "Sat";
+        switch(dayOfWeek){
+            case 1: return "SUN";
+            case 2: return "MON";
+            case 3: return "TUE";
+            case 4: return "WED";
+            case 5: return "THU";
+            case 6: return "FRI";
+            case 7: return "SAT";
         }
-        return "Error";
+        return "ERROR";
     }
     
-    public static int compare(java.sql.Date a, java.sql.Date b)
-    {
-       
+    public static int compare(java.sql.Date a, java.sql.Date b){
         Date e_a = toDateUtil(a);
         Date e_b = toDateUtil(b);
         System.out.println(a + " " + b +" " +e_a.compareTo(e_b));

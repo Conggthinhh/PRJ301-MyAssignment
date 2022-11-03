@@ -32,14 +32,19 @@ public abstract class DBContext<T> {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     //INSERT INTO
     public abstract void insert(T model);
-     //UPDATE SET
+    //UPDATE SET
+
     public abstract void update(T model);
-     //DELETE FROM
+    //DELETE FROM
+
     public abstract void delete(T model);
-     //SELECT * FROM WHERE id =
+    //SELECT * FROM WHERE id =
+
     public abstract T get(int id);
+
     //SELECT * FROM
     public abstract ArrayList<T> list();
 }

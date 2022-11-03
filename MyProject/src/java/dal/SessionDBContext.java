@@ -22,9 +22,9 @@ import model.TimeSlot;
 
 /**
  *
- * @author ADMIN
+ * @author Mr.Thinh
  */
-public class SessionDBContext extends dal.DBContext<Session> {
+public class SessionDBContext extends DBContext<Session> {
 
     @Override
     public void insert(Session model) {
@@ -47,18 +47,18 @@ public class SessionDBContext extends dal.DBContext<Session> {
             PreparedStatement stm_remove_available = connection.prepareStatement(sql);
             stm_remove_available.setInt(1, model.getId());
             stm_remove_available.executeUpdate();
-            
-            for(Attandance a : model.getAtts()){
-                 sql = "INSERT INTO [Attandance]\n"
+
+            for (Attandance a : model.getAtts()) {
+                sql = "INSERT INTO [Attandance]\n"
                         + "           ([sesid]\n"
                         + "           ,[stdid]\n"
                         + "           ,[present]\n"
-                        + "           ,[description]\n"
+                        + "           ,[description])\n"
                         + "     VALUES\n"
                         + "           (?\n"
                         + "           ,?\n"
                         + "           ,?\n"
-                        + "           ,?\n";
+                        + "           ,?)";
                 PreparedStatement stm_insert_new_record = connection.prepareStatement(sql);
                 stm_insert_new_record.setInt(1, model.getId());
                 stm_insert_new_record.setInt(2, a.getStudent().getId());
@@ -87,7 +87,6 @@ public class SessionDBContext extends dal.DBContext<Session> {
     public void delete(Session model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 
     @Override
     public Session get(int id) {
@@ -165,7 +164,7 @@ public class SessionDBContext extends dal.DBContext<Session> {
         }
         return null;
     }
-    
+
     @Override
     public ArrayList<Session> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -236,5 +235,4 @@ public class SessionDBContext extends dal.DBContext<Session> {
         }
         return sessions;
     }
-
 }
